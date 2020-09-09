@@ -16,4 +16,12 @@ public class ViewController {
 		return mv;
 	}
 
+	@GetMapping("/map")
+	public ModelAndView map()
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("map_test");
+		
+		return mv;
+	}
 }
