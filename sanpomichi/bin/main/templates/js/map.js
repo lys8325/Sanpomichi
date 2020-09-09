@@ -2,12 +2,28 @@ var polyline;
 var marker_;
 var loc_ = [];
 /* 최초 맵 중심 */
+
+
+
 var map = new naver.maps.Map('map', {
 	
     center: new naver.maps.LatLng(37.5666805, 126.9784147),
     zoom: 17,
     mapTypeId: naver.maps.MapTypeId.NORMAL
 });
+
+var $window = $(window);
+
+function getMapSize() {
+    var size = new naver.maps.Size($window.width() - 15, $window.height() - 15);
+
+    return size;
+};
+
+$window.on('resize', function() {
+    map.setSize(getMapSize());
+});
+
 
 
 function onSuccessGeolocation(position) {
