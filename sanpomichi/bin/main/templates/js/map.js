@@ -3,6 +3,8 @@ var marker_;
 var loc_ = [];
 /* 최초 맵 중심 */
 var map = new naver.maps.Map('map', {
+	
+	size: new naver.maps.Size(50, 52),
     center: new naver.maps.LatLng(37.5666805, 126.9784147),
     zoom: 17,
     mapTypeId: naver.maps.MapTypeId.NORMAL
