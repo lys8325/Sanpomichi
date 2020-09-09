@@ -84,7 +84,7 @@ playAlert = setInterval(function() {
 	marker_.setMap(null);
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	
-}, 2000);
+}, 60000);
     
     
     
