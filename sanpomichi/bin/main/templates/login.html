@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Client Login</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">    
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link rel="stylesheet" type="text/css" href="./css/login.css">
+</head>
+
+<body>
+
+<div class ="container">
+	<div th:replace = "./common/topbar :: topbar"></div> 
+	<div class="row" id="login-form">
+	
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="card-title text-center">Sign In</h5>
+            <div class="form-signin">
+              <div class="form-label-group">
+                <input type="text" id="inputEmail" class="form-control" placeholder="ID" onkeyup="clickEnter()" required autofocus>
+                <div class="invalid-feedback col-5" id ="validinputEmail">
+						Please Input Your ID
+				</div>
+                <label for="inputEmail">ID</label>
+              </div>
+
+              <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" onkeyup="clickEnter()" required>
+                <div class="invalid-feedback col-10" id ="validinputPassword">Please Input Your Password</div>
+                <label for="inputPassword">Password</label>
+              </div>
+              
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" onclick ='signIn()'>Sign in</button>
+            </div>
+            <hr class="my-4">
+            <button class="btn btn-lg  btn-block text-uppercase" data-toggle="modal" data-target="#createUserModal">Sign up</button>
+            <button class="btn btn-lg  btn-block text-uppercase" data-toggle="modal" data-target="#findUserModal">Find Password</button>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="selectCmpnyModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Create User Account</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <div class="modal-body">
+                <div class="form-group">
+                  <label for="selUserId">ID</label>
+                  <input type="text" class="form-control" id="selUserId" name="userId" placeholder="Input Your ID" required>
+                  <div class="invalid-feedback col-5" id ="validselUserId1">
+						영문 ID 를 입력해주세요.
+				 </div>
+				 <div class="invalid-feedback col-15" id ="validselUserId2">
+						영문 ID 는 소문자와 숫자를 조합하 6 ~ 14 자 이내여야 합니다.
+				 </div>
+				 <div class="invalid-feedback col-0" id ="validselUserId3">
+						이미 존재하는 ID 입니다.
+				 </div>
+                </div>
+                <div class="form-group">
+                  <label for="selUserPwd">Password</label>
+                  <input type="password" class="form-control" id="selUserPwd" name="userPwd" placeholder="Input Your Password" required>
+                  <div class="invalid-feedback col-5" id ="validselUserPwd1">
+						Password 를 입력해주세요.
+				 </div>
+				 <div class="invalid-feedback col-15" id ="validselUserPwd2">
+						Password 는 공백을 제외하고 6 ~ 14 자 이내여야 합니다.
+				 </div>
+                </div>
+                <div class="form-group">
+                  <label for="selUserPwd">Password Check</label>
+                  <input type="password" class="form-control" id="selUserPwd2" name="userPwd2" placeholder="Input Your Password Again" required>
+                  <div class="invalid-feedback col-15" id ="validselUserPwd3">
+						Password 에 기입한 내용과 일치하지 않습니다.
+				 </div>
+				 <div class="invalid-feedback col-10" id ="validselUserPwd4">
+						Password 를 다시 한 번 입력해주세요.
+				 </div>
+                </div>
+                <div class="form-group">
+                  <label for="selUserFind">Find Password Query</label>
+                  <input type="text" class="form-control" id="selUserFind" name="userFind" placeholder="Input Your Password Qurey" required>
+                  <div class="invalid-feedback col-15" id ="validselUserFind">
+						전화번호를 ' - ' 없이 11자리 입력해주세요.
+				 </div>
+                </div>
+                <div class="form-group">
+                  <label for="selUserNm">Nickname</label>
+                  <input type="text" class="form-control" id="selUserNm" name="userNm" placeholder="Input Your English NickName" required>
+                  <div class="invalid-feedback col-10" id ="validselUserNm1">
+						영문 Nickname 을 입력해주세요.
+				 </div>
+				 <div class="invalid-feedback col-15" id ="validselUserNm2">
+						영문 Nickname 은 특수문자, 공백을 제외하고 14 자 이내여야 합니다.
+				 </div>
+				 <div class="invalid-feedback col-10" id ="validselUserNm3">
+						이미 존재하는 Nickname 입니다.
+				 </div>
+                </div>
+                <div class="form-group">
+                  <label for="selUserEmail">E-Mail</label>
+                  <input type="email" class="form-control" id="selUserEmail" name="userEmail" placeholder="Input Your E-Mail" required>
+                  <div class="invalid-feedback col-10" id ="validselUserEmail1">
+						E-Mail 을 입력해주세요.
+				 </div>
+				 <div class="invalid-feedback col-15" id ="validselUserEmail2">
+						옳바른 E-Mail 형식이 아닙니다.  
+				 </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id ="modalClose">Close</button>
+                <button onclick ='signUp()' class="btn btn-primary">Create</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal fade" id="findUserModal" tabindex="-1" role="dialog" aria-labelledby="selectCmpnyModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Find User Password</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <div class="modal-body">
+                
+                <div class="form-group">
+                  <label for="fUserId">ID</label>
+                  <input type="text" class="form-control" id="fUserId" name="userId" placeholder="Input Your ID" required>
+                  <div class="invalid-feedback col-5" id ="validfUserId1">
+						영문 ID 를 입력해주세요.
+				 </div>
+				 <div class="invalid-feedback col-15" id ="validfUserId2">
+						영문 ID 는 소문자와 숫자를 조합하 6 ~ 14 자 이내여야 합니다.
+				 </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="fUserFind">Find Password Query</label>
+                  <input type="text" class="form-control" id="fUserFind" name="userFind" placeholder="Input Your Password Qurey" required>
+                  <div class="invalid-feedback col-15" id ="validfUserFind">
+						전화번호를 ' - ' 없이 11자리 입력해주세요.
+				 </div>
+                </div>
+               
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id ="modalClose">Close</button>
+                <button onclick ='findPwd()' class="btn btn-primary">Find</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal fade" id="changePwdModal" tabindex="-1" role="dialog" aria-labelledby="selectCmpnyModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Enter the new Password</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+              <div class="modal-body">
+                
+                <div class="form-group">
+                  <label for="newPwd">Password</label>
+                  <input type="password" class="form-control" id="newPwd" name="userPwd" placeholder="Input Your New Password" required>
+                  <div class="invalid-feedback col-5" id ="validselNewPwd1">
+						Password 를 입력해주세요.
+				 </div>
+				 <div class="invalid-feedback col-15" id ="validselNewPwd2">
+						Password 는 공백을 제외하고 6 ~ 14 자 이내여야 합니다.
+				 </div>
+                </div>
+                <div class="form-group">
+                  <label for="newPwd">Password Check</label>
+                  <input type="password" class="form-control" id="newPwd2" name="userPwd2" placeholder="Input Your New Password Again" required>
+                  <div class="invalid-feedback col-15" id ="validselNewPwd3">
+						Password 에 기입한 내용과 일치하지 않습니다.
+				 </div>
+				 <div class="invalid-feedback col-10" id ="validselNewPwd4">
+						Password 를 다시 한 번 입력해주세요.
+				 </div>
+                </div>
+               
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-third" data-dismiss="modal" id ="modalClose">Close</button>
+                <button onclick ='changePwd()' class="btn btn-third">Change</button>
+              </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  	  
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="./js/common.js"></script>
+<script src="./js/login.js"></script>
+</body>
+</html>

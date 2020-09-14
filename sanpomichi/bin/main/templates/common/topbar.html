@@ -21,12 +21,14 @@
   					<button class="btn btn-outline-primary mr-4" type="button">Search</button>
   					<div class="row">
   						<div class="col">
-  							<button th:if="${session.userNickName} == null" class="btn btn-outline-secondary" type="button">Login</button>
+  							<button th:if="${session.userNickName} == null" class="btn btn-outline-secondary" type="button">
+  								<a href="login.html">Login</a>
+  							</button>
     						<button th:if="${session.userNickName} != null" class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" th:text="${session.userNickName}"></button>
    							<div class="dropdown-menu">
      							<a class="dropdown-item" href="#">MyPage</a>
       							<div role="separator" class="dropdown-divider"></div>
-      							<a class="dropdown-item" href="#">Logout</a>
+      							<a class="dropdown-item" href="javascript:logout();">Logout</a>
    							</div>
    						</div>
    					</div>
