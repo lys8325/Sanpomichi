@@ -1,5 +1,6 @@
 var polyline;
 var marker_;
+var marker_cur;
 var loc_ = [];
 /* 최초 맵 중심 */
 
@@ -26,6 +27,7 @@ $window.on('resize', function() {
 
 
 
+// 좌표 수집용 메소드
 function onSuccessGeolocation(position) {
 	
 	
@@ -33,21 +35,39 @@ function onSuccessGeolocation(position) {
                                          position.coords.longitude);
     
     loc_.push(location);
-    
+    /*
     marker_ = new naver.maps.Marker({
         position: location,
         map: map
     });
-   
+    */
+}
+
+function onErrorGeolocation() {
+    var center = map.getCenter();
+}
+
+
+// 현재 좌표 지정용 메소드
+function onSuccessGeolocation_cur(position) {
+	
+	
+    var location = new naver.maps.LatLng(position.coords.latitude,
+                                         position.coords.longitude);
+    var markerOptions = {
+    		position: location,
+            map: map,
+           
+    	};
+    
+   marker_cur = new naver.maps.Marker(markerOptions);
     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
     map.setZoom(17); // 지도의 줌 레벨을 변경합니다.
     
 }
 
-function onErrorGeolocation() {
+function onErrorGeolocation_cur() {
     var center = map.getCenter();
-
-
 }
 
 $(window).on("load", function() {
@@ -57,7 +77,7 @@ $(window).on("load", function() {
          * http://localhost 에서는 사용이 가능하며, 테스트 목적으로, Chrome 의 바로가기를 만들어서 아래와 같이 설정하면 접속은 가능합니다.
          * chrome.exe --unsafely-treat-insecure-origin-as-secure="http://example.com"
          */
-        navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
+        navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
     } else {
         var center = map.getCenter();
         infowindow.setContent('<div style="padding:20px;"><h5 style="margin-bottom:5px;color:#f00;">Geolocation not supported</h5></div>');
@@ -98,11 +118,18 @@ $(window).on("load", function() {
 //1초마다 위치 갱신 트래킹 구현 
 playAlert = setInterval(function() {
 	
-	marker_.setMap(null);
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	
 }, 60000);
-    
+
+//1초마다 위치 갱신 트래킹 구현 
+playCur = setInterval(function() {
+	
+	marker_cur.setMap(null);
+	navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
+	
+}, 1000);
+  
     
     
 $('#complete').on('click',function(){
@@ -145,10 +172,11 @@ $('#complete').on('click',function(){
   	
   	
   	clearInterval(playAlert);
+  	clearInterval(playCur);
 	
 	polyline = new naver.maps.Polyline({
 	    map: map,
-	    path:path,
+	    path:data_list,
 	    clickable: true,
 	    strokeColor: '#5347AA',
 	    strokeStyle: 'long',
