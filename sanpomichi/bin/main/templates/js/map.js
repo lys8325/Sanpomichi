@@ -60,7 +60,7 @@ function onSuccessGeolocation_cur(position) {
            
     	};
     
-   marker_cur = new naver.maps.Marker(markerOptions);
+    marker_cur = new naver.maps.Marker(markerOptions);
     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
     map.setZoom(17); // 지도의 줌 레벨을 변경합니다.
     
@@ -126,9 +126,10 @@ playAlert = setInterval(function() {
 playCur = setInterval(function() {
 	
 	marker_cur.setMap(null);
+	marker_cur = null;
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
 	
-}, 1000);
+}, 5000);
   
     
     
