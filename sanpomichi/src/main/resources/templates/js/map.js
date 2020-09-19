@@ -128,7 +128,7 @@ playCur = setInterval(function() {
 	marker_cur = null;
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
 	
-}, 1000);
+}, 5000);
   
     
     
