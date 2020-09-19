@@ -120,7 +120,7 @@ playAlert = setInterval(function() {
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	
 }, 3000);
-
+/*
 //1초마다 위치 갱신 트래킹 구현 
 playCur = setInterval(function() {
 	
@@ -128,7 +128,7 @@ playCur = setInterval(function() {
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
 	
 }, 1000);
-    
+  */  
     
     
 $('#complete').on('click',function(){
@@ -175,7 +175,7 @@ $('#complete').on('click',function(){
 	
 	polyline = new naver.maps.Polyline({
 	    map: map,
-	    path:path,
+	    path:data_list,
 	    clickable: true,
 	    strokeColor: '#5347AA',
 	    strokeStyle: 'long',
