@@ -120,7 +120,7 @@ playAlert = setInterval(function() {
 	
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	
-}, 3000);
+}, 60000);
 
 //1초마다 위치 갱신 트래킹 구현 
 playCur = setInterval(function() {
