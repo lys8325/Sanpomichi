@@ -14,7 +14,7 @@ public class UserService {
 	
 	@Autowired
 	UserRepository userRepo;
-
+	
 	public String hashing(String plainText) {
 		return BCrypt.hashpw(plainText,BCrypt.gensalt());
 	}
