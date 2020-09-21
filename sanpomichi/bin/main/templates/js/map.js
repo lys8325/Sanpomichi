@@ -120,7 +120,7 @@ playAlert = setInterval(function() {
 	
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	
-}, 60000);
+}, 1000);
 
 //1초마다 위치 갱신 트래킹 구현 
 playCur = setInterval(function() {
@@ -142,15 +142,24 @@ $('#complete').on('click',function(){
   	}
   	
   	var data_list = [];
+  	var x_list = [];
+  	var y_list = [];
   	for(var i = 0, ii =loc_.length; i < ii; i++)
   		{
   			var data = {
-  					name : 'hi',
+  					name : 'yonggoong',
   					y : loc_[i].y,
   					x : loc_[i].x
   			};
   			data_list.push(data);
+  			y_list.push(loc_[i].y);
+  			x_list.push(loc_[i].x);
   		}
+	var route = {
+				name : 'yonggoong',
+				y : y_list,
+				x : x_list
+	};
   	
   	console.log(data_list);
   	
@@ -161,7 +170,7 @@ $('#complete').on('click',function(){
          xhrFields: {
   	        withCredentials: true
   	    },
-         data: JSON.stringify(data_list),
+         data: JSON.stringify(route),
          dataType : "text",
          contentType: 'application/json',
          success: function(data){

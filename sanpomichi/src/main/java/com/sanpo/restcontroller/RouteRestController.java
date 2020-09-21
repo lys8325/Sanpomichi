@@ -19,12 +19,9 @@ public class RouteRestController {
 	RouteService routeService;
 	
 	@PostMapping("/saveLocation")
-	public String saveLocation(@RequestBody List<Route> routeList)
+	public String saveLocation(@RequestBody Route r)
 	{
-		for(Route r : routeList)
-		{
-			routeService.saveRoute(r);
-		}
+		routeService.saveRoute(r);
 		return "1";
 	}
 
