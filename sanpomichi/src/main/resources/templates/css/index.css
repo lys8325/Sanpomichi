@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Brush+Script&display=swap');
+
+
 #left-area{
 	height : 600px;
 	width : 700px;
@@ -6,7 +9,25 @@
 }
 
 #right-area{
-	height : 600px;
+	margin-top : 20px;	
+	height : 580px;
 	width : 400px;
 	border: 1px solid black;
+}
+
+#rank
+{
+	padding-top : 10px;
+	padding-left : 40px;
+	font-family: 'Do Hyeon', sans-serif;
+}
+
+#tableHd
+{
+	font-family: 'Do Hyeon', sans-serif;
+	font-size:25px;
+}
+#tableTd
+{
+	text-align : center;
 }

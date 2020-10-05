@@ -20,7 +20,7 @@ public class ViewController {
 	public ModelAndView map()
 	{
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("map_test");
+		mv.setViewName("create_map");
 		
 		return mv;
 	}

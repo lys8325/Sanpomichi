@@ -2,6 +2,9 @@ var polyline;
 var marker_;
 var marker_cur;
 var loc_ = [];
+
+//start 클릭 체크용
+var flag = 0;
 /* 최초 맵 중심 */
 
 
@@ -91,9 +94,10 @@ $(window).on("load", function() {
  * 맵 클릭 시 좌표 추가 
  * 
  * **/
-	var markerList = [];
-    var menuLayer = $('<div style="position:absolute;z-index:10000;background-color:#fff;border:solid 1px #333;padding:10px;display:none;"></div>');
 
+var markerList = [];
+var menuLayer = $('<div style="position:absolute;z-index:10000;background-color:#fff;border:solid 1px #333;padding:10px;display:none;"></div>');
+/*
     map.getPanes().floatPane.appendChild(menuLayer[0]);
     naver.maps.Event.addListener(map, 'click', function(e) {
         var marker = new naver.maps.Marker({
@@ -113,7 +117,7 @@ $(window).on("load", function() {
     	});
        
     });
-    
+*/  
     
 //1초마다 위치 갱신 트래킹 구현 
 playAlert = setInterval(function() {
@@ -131,68 +135,92 @@ playCur = setInterval(function() {
 	
 }, 5000);
   
-    
+$('#start').on('click',function()
+{
+	if(flag == 0)
+	{
+		flag = 1;
+		loc_ = [];
+	}
+	else
+	{
+		alert("이미 진행중입니다.");
+	}
+	
+});
+
     
 $('#complete').on('click',function(){
 	
-	 path = [];
-  	for (var i=0, ii=markerList.length; i<ii; i++) {
-  	   var position = new naver.maps.LatLng(markerList[i].position);
-  	   path.push(position);
-  	}
-  	
-  	var data_list = [];
-  	var x_list = [];
-  	var y_list = [];
-  	for(var i = 0, ii =loc_.length; i < ii; i++)
-  		{
-  			var data = {
-  					name : 'yonggoong',
-  					y : loc_[i].y,
-  					x : loc_[i].x
-  			};
-  			data_list.push(data);
-  			y_list.push(loc_[i].y);
-  			x_list.push(loc_[i].x);
-  		}
-	var route = {
-				name : 'yonggoong',
-				y : y_list,
-				x : x_list
-	};
-  	
-  	console.log(data_list);
-  	
-  	 $.ajax({
-         url: '/saveLocation',
-		traditional:true,
-         type: "POST",
-         xhrFields: {
-  	        withCredentials: true
-  	    },
-         data: JSON.stringify(route),
-         dataType : "text",
-         contentType: 'application/json',
-         success: function(data){
-         },
-         error:function(request, error) {
- 			alert("fail");
- 		}
-     });
-  	
-  	
-  	clearInterval(playAlert);
-  	clearInterval(playCur);
-	
-	polyline = new naver.maps.Polyline({
-	    map: map,
-	    path:data_list,
-	    clickable: true,
-	    strokeColor: '#5347AA',
-	    strokeStyle: 'long',
-	    strokeOpacity: 1,
-	    strokeWeight: 5
-	});
-
-	
+	if(flag == 0)
+	{
+		alert("start 버튼을 클릭해주세요.");
+	}
+	else if($('#name').val() == "")
+	{
+		$('#validName').show();
+	}
+	else
+	{
+		flag = 0;
+		$('#validName').hide();
+		 path = [];
+		  	for (var i=0, ii=markerList.length; i<ii; i++) {
+		  	   var position = new naver.maps.LatLng(markerList[i].position);
+		  	   path.push(position);
+		  	}
+		  	
+		  	var data_list = [];
+		  	var x_list = [];
+		  	var y_list = [];
+		  	for(var i = 0, ii =loc_.length; i < ii; i++)
+		  		{
+		  			var data = {
+		  					name : $('#name').val(),
+		  					y : loc_[i].y,
+		  					x : loc_[i].x
+		  			};
+		  			data_list.push(data);
+		  			y_list.push(loc_[i].y);
+		  			x_list.push(loc_[i].x);
+		  		}
+			var route = {
+						name : $('#name').val(),
+						y : y_list,
+						x : x_list
+			};
+		  	
+		  	console.log(data_list);
+		  	
+		  	 $.ajax({
+		         url: '/saveLocation',
+				traditional:true,
+		         type: "POST",
+		         xhrFields: {
+		  	        withCredentials: true
+		  	    },
+		         data: JSON.stringify(route),
+		         dataType : "text",
+		         contentType: 'application/json',
+		         success: function(data){
+		         },
+		         error:function(request, error) {
+		 			alert("fail");
+		 		}
+		     });
+		  	
+		  	
+		  	clearInterval(playAlert);
+		  	clearInterval(playCur);
+			
+			polyline = new naver.maps.Polyline({
+			    map: map,
+			    path:data_list,
+			    clickable: true,
+			    strokeColor: '#5347AA',
+			    strokeStyle: 'long',
+			    strokeOpacity: 1,
+			    strokeWeight: 5
+			});
+	}
 });
