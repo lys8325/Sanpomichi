@@ -25,6 +25,15 @@ public class ViewController {
 		return mv;
 	}
 	
+	@GetMapping("/load_map")
+	public ModelAndView loadMap()
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("load_map");
+		
+		return mv;
+	}
+	
 	@GetMapping("/login")
 	public ModelAndView login()
 	{

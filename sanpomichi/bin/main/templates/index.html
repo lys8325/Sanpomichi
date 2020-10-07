@@ -21,13 +21,15 @@
 						<tr>
 							<td id ="tableHd">
 								<span>등록 산책 루트</span>
-								<i id="plus" class="fas fa-plus-circle ml-4"></i>
+								<i th:if="${session.userNickName} != null" id="plus_login" class="fas fa-plus-circle ml-4"></i>
+								<i th:if="${session.userNickName} == null" th:onclick ="toLogin()" class="fas fa-plus-circle ml-4"></i>
 							</td>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td style ="width : 800px" id ="tableTd" th:text="흠흠"></td>
+							<td th:if="${session.userNickName} == null" th:onclick ="toLogin()" style ="width : 800px" id ="tableTd" th:text="흠흠"></td>
+							<td th:if="${session.userNickName} != null" th:onclick ="" style ="width : 800px" id ="tableTd" th:text="흠흠"></td>
 						</tr>
 					</tbody>
 				</table>

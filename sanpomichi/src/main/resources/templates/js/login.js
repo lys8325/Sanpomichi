@@ -109,7 +109,6 @@ function signUp()
 			userEmail : userEmail
 	};
 	
-	console.log(data);
 	
 	$.ajax({
         url: 'signUp',
@@ -188,7 +187,6 @@ function findPwd()
 			userFind : userFind
 	};
 	
-	console.log(data);
 	
 	$.ajax({
         url: 'findPwd',
@@ -274,7 +272,6 @@ function changePwd()
 			userPwd : newPwd
 	};
 	
-	console.log(data);
 	
 	$.ajax({
         url: 'changePwd',
@@ -328,7 +325,6 @@ function signIn()
 			userPwd : userPwd,
 	};
 	
-	console.log(data);
 	
 	$.ajax({
         url: 'signIn',

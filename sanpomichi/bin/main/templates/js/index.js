@@ -7,6 +7,10 @@ $(document).ready(function(){
 		} );
 });
 
-$('#plus').on('click',function(){
+$('#plus_login').on('click',function(){
 	getView('map')
 })
+
+function toLogin(){
+	getView('login');
+}
