@@ -26,12 +26,6 @@
 		<div id="map" style="width:100%;height:55vh;" ></div>
 	</div>
 	<div class="row mt-4 mb-2">
-		<input id ="name" class="form-control" placeholder="산책 루트명을 입력하세요.">
-		<div class="invalid-feedback col-5" id ="validName">
-			산책 루트명을 입력해주세요.
-		</div>
-	</div>
-	<div class="row mt-4 mb-2">
 		<button id ="start" class="btn btn-lg btn-outline-primary">Start</button>
 		<button id ="complete" class="ml-3 btn btn-lg btn-outline-danger">Stop</button>
 		<div class="ml-3" id="description">
@@ -42,10 +36,42 @@
 	</div>
 </div>
 
+<div class="modal fade" id="createRoute" tabindex="-1" role="dialog" aria-labelledby="selectCmpnyModal" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">산책 경로 정보를 입력해주세요.</h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="routeName">경로 이름</label>
+                  	<input type="text" class="form-control" id="routeName" name="routeName" placeholder="경로 이름" required>
+                  	<div class="invalid-feedback col-5" id ="validRouteName">
+						경로 이름을 입력해주세요.
+				 	</div>
+				</div>
+				<div class="form-group">
+					<label for="routeKeyword">키워드</label>
+                  	<input type="text" class="form-control" id="routeKeyword" name="routeKeyword" placeholder="키워드를 입력해주세요. 띄어쓰기로 다중 입력이 가능합니다.">
+				</div>
+				<div class="form-group">
+					<label for="routeInfo">설명</label>
+                  	<input type="text" class="form-control" id="routeInfo" name="routeInfo" placeholder="경로 설명을 입력해주세요. ( 최대 1000자 )">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button onclick ='createRoute()' class="btn btn-primary">경로 생성</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>	  	  
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script src="./js/common.js"></script>
 <script src="./js/map.js"></script>
+<script th:inline="javascript">
+		var user_name = [[${session.userNickName}]];
+</script>
 </body>
 </html>

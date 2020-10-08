@@ -1,10 +1,14 @@
 package com.sanpo.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
@@ -24,12 +28,19 @@ public class Post {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	String name;
+//	@OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    @JoinColumn(name = "ROUTE_ID")
+	Integer route_id;
 	
 	@Type(type = "json")
 	@Column(columnDefinition = "json")
 	String[] keyword;
 	
 	Integer heart;
+	
+	String information;
+	
+	Integer length;
 
+	String user_id;
 }

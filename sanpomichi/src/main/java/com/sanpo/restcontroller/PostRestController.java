@@ -5,20 +5,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sanpo.entity.Route;
-import com.sanpo.service.RouteService;
+import com.sanpo.entity.Post;
+import com.sanpo.service.PostService;
 
 @RestController
-public class RouteRestController {
+public class PostRestController {
 	
 	@Autowired
-	RouteService routeService;
+	PostService postService;
 	
-	@PostMapping("/saveRoute")
-	public Integer saveLocation(@RequestBody Route r)
+	@PostMapping("/savePost")
+	public Integer saveLocation(@RequestBody Post p)
 	{
-		routeService.saveRoute(r);
-		return r.getId();
+		postService.savePost(p);
+		return p.getId();
 	}
 
 }
