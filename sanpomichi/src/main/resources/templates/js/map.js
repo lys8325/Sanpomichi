@@ -2,7 +2,8 @@ var polyline;
 var marker_;
 var marker_cur;
 var loc_ = [];
-
+var interval = 1000;
+var r_id;
 //start 클릭 체크용
 var flag = 0;
 /* 최초 맵 중심 */
@@ -124,7 +125,7 @@ playAlert = setInterval(function() {
 	
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation, onErrorGeolocation);
 	
-}, 1000);
+}, interval);
 
 //1초마다 위치 갱신 트래킹 구현 
 playCur = setInterval(function() {
@@ -156,14 +157,21 @@ $('#complete').on('click',function(){
 	{
 		alert("start 버튼을 클릭해주세요.");
 	}
-	else if($('#name').val() == "")
+	else{
+		flag = 0;
+		$('#createRoute').modal('show');
+	}
+
+});
+
+function createRoute(){
+	if($('#routeName').val() == "")
 	{
-		$('#validName').show();
+		$('#validRouteName').show();
 	}
 	else
 	{
-		flag = 0;
-		$('#validName').hide();
+		$('#validRouteName').hide();
 		 path = [];
 		  	for (var i=0, ii=markerList.length; i<ii; i++) {
 		  	   var position = new naver.maps.LatLng(markerList[i].position);
@@ -185,15 +193,16 @@ $('#complete').on('click',function(){
 		  			x_list.push(loc_[i].x);
 		  		}
 			var route = {
-						name : $('#name').val(),
+						name : $('#routeName').val(),
 						y : y_list,
 						x : x_list
 			};
 		  	
-		  	console.log(data_list);
-		  	
+		  	//console.log(data_list);
+		  	var keywordList = $('#routeKeyword').val().split(" ");
+			console.log(keywordList);
 		  	 $.ajax({
-		         url: '/saveLocation',
+		         url: '/saveRoute',
 				traditional:true,
 		         type: "POST",
 		         xhrFields: {
@@ -203,13 +212,39 @@ $('#complete').on('click',function(){
 		         dataType : "text",
 		         contentType: 'application/json',
 		         success: function(data){
+		        	 var post = {
+		 		  			route_id : data,
+		 		  			keyword : keywordList,
+		 		  			heart : 0,
+		 		  			information : $('#routeInfo').val(),
+		 		  			length : (y_list.length * interval / 60000)+1|0,
+		 		  			user_id : user_name
+		 		  	 };
+		        	 //console.log(post);
+		        	 $.ajax({
+		        		 url: '/savePost',
+		        		 traditional:true,
+				         type: "POST",
+				         xhrFields: {
+				  	        withCredentials: true
+				         },
+				         data: JSON.stringify(post),
+				         dataType : "text",
+				         contentType: 'application/json',
+				         success: function(data){
+				        	 console.log(data);
+				         },
+				         error: function(request, error){
+				        	 alert("fail");
+				         }
+		        	 });
 		         },
 		         error:function(request, error) {
 		 			alert("fail");
 		 		}
 		     });
 		  	
-		  	
+		  	$('#createRoute').modal('hide');
 		  	clearInterval(playAlert);
 		  	clearInterval(playCur);
 			
@@ -223,4 +258,4 @@ $('#complete').on('click',function(){
 			    strokeWeight: 5
 			});
 	}
-});
+}

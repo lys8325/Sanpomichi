@@ -12,9 +12,10 @@ public class RouteService {
 	@Autowired
 	RouteRepository routeRepo;
 	
-	public void saveRoute(Route r)
+	public Integer saveRoute(Route r)
 	{
 		routeRepo.save(r);
+		return r.getId();
 	}
 
 }
