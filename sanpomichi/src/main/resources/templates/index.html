@@ -27,9 +27,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td th:if="${session.userNickName} == null" th:onclick ="toLogin()" style ="width : 800px" id ="tableTd" th:text="흠흠"></td>
-							<td th:if="${session.userNickName} != null" th:onclick ="" style ="width : 800px" id ="tableTd" th:text="흠흠"></td>
+						<tr  th:if="${session.userNickName} == null" th:onclick ="toLogin()">
+							<td style="text-align:center;"><span>로그인 해주세요</span></td>
+						</tr>
+						<tr th:each = "postList:${postList}" th:if="${session.userNickName} != null" th:onclick ="'toLoad_map('+ ${postList.route_id}  +')'">
+							<td  style ="width : 800px" id ="tableTd" th:text = "${postList.name}"></td>
 						</tr>
 					</tbody>
 				</table>

@@ -213,6 +213,7 @@ function createRoute(){
 		         contentType: 'application/json',
 		         success: function(data){
 		        	 var post = {
+		        			name : $('#routeName').val(),
 		 		  			route_id : data,
 		 		  			keyword : keywordList,
 		 		  			heart : 0,
@@ -220,7 +221,7 @@ function createRoute(){
 		 		  			length : (y_list.length * interval / 60000)+1|0,
 		 		  			user_id : user_name
 		 		  	 };
-		        	 //console.log(post);
+		        	 console.log(post);
 		        	 $.ajax({
 		        		 url: '/savePost',
 		        		 traditional:true,
@@ -248,14 +249,6 @@ function createRoute(){
 		  	clearInterval(playAlert);
 		  	clearInterval(playCur);
 			
-			polyline = new naver.maps.Polyline({
-			    map: map,
-			    path:data_list,
-			    clickable: true,
-			    strokeColor: '#5347AA',
-			    strokeStyle: 'long',
-			    strokeOpacity: 1,
-			    strokeWeight: 5
-			});
+			
 	}
 }

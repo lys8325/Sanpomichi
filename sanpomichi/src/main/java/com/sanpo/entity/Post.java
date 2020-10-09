@@ -35,7 +35,7 @@ public class Post {
 	@Type(type = "json")
 	@Column(columnDefinition = "json")
 	String[] keyword;
-	
+	String name;
 	Integer heart;
 	
 	String information;

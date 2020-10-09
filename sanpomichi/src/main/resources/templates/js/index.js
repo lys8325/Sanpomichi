@@ -14,3 +14,7 @@ $('#plus_login').on('click',function(){
 function toLogin(){
 	getView('login');
 }
+
+function toLoad_map(route_id){
+	getView('load_map?route_id='+route_id);
+}

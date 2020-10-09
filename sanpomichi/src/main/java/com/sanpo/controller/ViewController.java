@@ -1,18 +1,37 @@
 package com.sanpo.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.sanpo.entity.Post;
+import com.sanpo.entity.Route;
+import com.sanpo.repository.PostRepository;
+import com.sanpo.repository.RouteRepository;
 
 @Controller
 public class ViewController {
+	@Autowired
+	PostRepository postRepo;
+	@Autowired
+	RouteRepository routeRepo;
+	
 	
 	@GetMapping("/")
-	public ModelAndView main()
+	public ModelAndView main(HttpSession session, HttpServletResponse response)
 	{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("index");
-		
+		String user_id = (String) session.getAttribute("userNickName");
+		List<Post> list = postRepo.findByUserId(user_id);
+		mv.addObject("postList", list);
 		return mv;
 	}
 
@@ -26,11 +45,13 @@ public class ViewController {
 	}
 	
 	@GetMapping("/load_map")
-	public ModelAndView loadMap()
+	public ModelAndView loadMap(@RequestParam("route_id") int route_id)
 	{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("load_map");
-		
+		Route route = routeRepo.findById(route_id).get();
+		mv.addObject("x_list", route.getX());
+		mv.addObject("y_list", route.getY());
 		return mv;
 	}
 	
