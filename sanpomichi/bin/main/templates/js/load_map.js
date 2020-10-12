@@ -7,25 +7,8 @@ var loc_ = [];
 var flag = 0;
 /* 최초 맵 중심 */
 
-
-
-var map = new naver.maps.Map('map', {
-	
-    center: new naver.maps.LatLng(37.5666805, 126.9784147),
-    zoom: 17,
-    mapTypeId: naver.maps.MapTypeId.NORMAL
-});
-
 var $window = $(window);
-
-function getMapSize() {
-    var size = new naver.maps.Size($window.width() - 15, $window.height() - 15);
-
-    return size;
-};
-
-$window.on('resize', function() {
-    map.setSize(getMapSize());
+$(document).ready(function(){
     var data_list = [];
     for(var i = 0, ii =x_list.length; i < ii; i++)
 	{		
@@ -47,6 +30,16 @@ $window.on('resize', function() {
 	    strokeWeight: 5
 	});
 });
+var map = new naver.maps.Map('map', {
+	
+    center: new naver.maps.LatLng(37.5666805, 126.9784147),
+    zoom: 17,
+    mapTypeId: naver.maps.MapTypeId.NORMAL
+});
+
+
+
+
 
 
 
