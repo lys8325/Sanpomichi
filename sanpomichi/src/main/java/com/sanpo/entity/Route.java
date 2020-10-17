@@ -34,5 +34,9 @@ public class Route {
 	@Column(columnDefinition = "json")
 	String[] x;
 	
+	@Type(type = "json")
+	@Column(columnDefinition = "json")
+	String[] comment;
+	
 
 }

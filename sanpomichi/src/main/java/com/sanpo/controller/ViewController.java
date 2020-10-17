@@ -50,8 +50,14 @@ public class ViewController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("load_map");
 		Route route = routeRepo.findById(route_id).get();
+		Post post = postRepo.findByRouteId(route_id);
+		mv.addObject("length",post.getLength());
+		mv.addObject("information",post.getInformation());
 		mv.addObject("x_list", route.getX());
 		mv.addObject("y_list", route.getY());
+		mv.addObject("id", route.getId());
+		mv.addObject("name", route.getName());
+		mv.addObject("comment", route.getComment());
 		return mv;
 	}
 	
