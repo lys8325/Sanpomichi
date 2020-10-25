@@ -24,8 +24,6 @@ public class Route {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer id;
 	
-	String name;
-	
 	@Type(type = "json")
 	@Column(columnDefinition = "json")
 	String[] y;

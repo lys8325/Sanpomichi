@@ -56,7 +56,6 @@ public class ViewController {
 		mv.addObject("x_list", route.getX());
 		mv.addObject("y_list", route.getY());
 		mv.addObject("id", route.getId());
-		mv.addObject("name", route.getName());
 		mv.addObject("comment", route.getComment());
 		return mv;
 	}
