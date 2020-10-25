@@ -10,6 +10,8 @@ var flag = 0;
 /* 최초 맵 중심 */
 
 
+$('#complete').hide();
+$('[name=description_complete]').hide();
 
 var map = new naver.maps.Map('map', {
 	
@@ -143,6 +145,10 @@ $('#start').on('click',function()
 	{
 		flag = 1;
 		loc_ = [];
+		$('#start').hide();
+		$('[name=description_start]').hide();
+		$('#complete').show();
+		$('[name=description_complete]').show();
 	}
 	else
 	{
@@ -206,8 +212,13 @@ $('#complete').on('click',function(){
 	 		}
 	     });
 	  	 
-		 clearInterval(playAlert);
-		 clearInterval(playCur);
+		 //clearInterval(playAlert);
+		 //clearInterval(playCur);
+		 
+		 $('#start').show();
+		 $('[name=description_start]').show();
+		 $('#complete').hide();
+		 $('[name=description_complete]').hide();
 	}
 
 });
