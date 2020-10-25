@@ -221,7 +221,20 @@ function createRoute(){
 	{
 		$('#validRouteName').hide();
 		 
-		var keywordList = $('#routeKeyword').val().split(" ");
+		var kwList = $('#routeKeyword').val().split(/[\#|,.;:!?\-\=\/~@ ]/);
+		var kwCnt = 0;
+		var keywordList = [];
+		
+		for(var i=0;i<kwList.length;++i){
+			if(kwList[i] != ""){
+				keywordList.push(kwList[i]);
+				++kwCnt;
+				if(kwCnt == 5){
+					break;
+				}
+			}
+		}
+		
     	var post = {
     			name : $('#routeName').val(),
 	  			route_id : r_id,

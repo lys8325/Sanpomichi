@@ -139,8 +139,7 @@ $('#comment_button').on('click',function(){
 			id : id,
 			x : x_list,
 			y : y_list,
-			comment : comment,
-			name : name
+			comment : comment
 		};
 		
 		$.ajax({
