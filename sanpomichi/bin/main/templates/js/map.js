@@ -2,13 +2,16 @@ var polyline;
 var marker_;
 var marker_cur;
 var loc_ = [];
-var interval = 1000;
+var interval = 3000;
 var r_id;
+var r_len;
 //start 클릭 체크용
 var flag = 0;
 /* 최초 맵 중심 */
 
 
+$('#complete').hide();
+$('[name=description_complete]').hide();
 
 var map = new naver.maps.Map('map', {
 	
@@ -142,6 +145,10 @@ $('#start').on('click',function()
 	{
 		flag = 1;
 		loc_ = [];
+		$('#start').hide();
+		$('[name=description_start]').hide();
+		$('#complete').show();
+		$('[name=description_complete]').show();
 	}
 	else
 	{
@@ -160,6 +167,58 @@ $('#complete').on('click',function(){
 	else{
 		flag = 0;
 		$('#createRoute').modal('show');
+		path = [];
+	  	for (var i=0, ii=markerList.length; i<ii; i++) {
+	  	   var position = new naver.maps.LatLng(markerList[i].position);
+	  	   path.push(position);
+	  	}
+	  	
+	  	var data_list = [];
+	  	var x_list = [];
+	  	var y_list = [];
+	  	for(var i = 0, ii =loc_.length; i < ii; i++)
+	  		{
+	  			var data = {
+	  					name : $('#routeName').val(),
+	  					y : loc_[i].y,
+	  					x : loc_[i].x
+	  			};
+	  			data_list.push(data);
+	  			y_list.push(loc_[i].y);
+	  			x_list.push(loc_[i].x);
+	  		}
+		var route = {
+					y : y_list,
+					x : x_list
+		};
+	  	
+	  	console.log(data_list);
+	  	r_len = (y_list.length * interval / 60000)+1|0;
+	  	 $.ajax({
+	         url: '/saveRoute',
+			traditional:true,
+	         type: "POST",
+	         xhrFields: {
+	  	        withCredentials: true
+	  	    },
+	         data: JSON.stringify(route),
+	         dataType : "text",
+	         contentType: 'application/json',
+	         success: function(data){
+	        	 r_id = data;
+	         },
+	         error:function(request, error) {
+	 			alert("fail");
+	 		}
+	     });
+	  	 
+		 //clearInterval(playAlert);
+		 //clearInterval(playCur);
+		 
+		 $('#start').show();
+		 $('[name=description_start]').show();
+		 $('#complete').hide();
+		 $('[name=description_complete]').hide();
 	}
 
 });
@@ -172,83 +231,50 @@ function createRoute(){
 	else
 	{
 		$('#validRouteName').hide();
-		 path = [];
-		  	for (var i=0, ii=markerList.length; i<ii; i++) {
-		  	   var position = new naver.maps.LatLng(markerList[i].position);
-		  	   path.push(position);
-		  	}
+		 
+		var kwList = $('#routeKeyword').val().split(/[\#|,.;:!?\-\=\/~@ ]/);
+		var kwCnt = 0;
+		var keywordList = [];
+		
+		for(var i=0;i<kwList.length;++i){
+			if(kwList[i] != ""){
+				keywordList.push(kwList[i]);
+				++kwCnt;
+				if(kwCnt == 5){
+					break;
+				}
+			}
+		}
+		
+    	var post = {
+    			name : $('#routeName').val(),
+	  			route_id : r_id,
+	  			keyword : keywordList,
+	  			heart : 0,
+	  			information : $('#routeInfo').val(),
+	  			length : r_len,
+	  			user_id : user_name
+	  	 };
+    	 console.log(post);
+    	 $.ajax({
+    		 url: '/savePost',
+    		 traditional:true,
+	         type: "POST",
+	         xhrFields: {
+	  	        withCredentials: true
+	         },
+	         data: JSON.stringify(post),
+	         dataType : "text",
+	         contentType: 'application/json',
+	         success: function(data){
+	        	 console.log(data);
+	         },
+	         error: function(request, error){
+	        	 alert("fail");
+	         }
+    	 });
+		         
 		  	
-		  	var data_list = [];
-		  	var x_list = [];
-		  	var y_list = [];
-		  	for(var i = 0, ii =loc_.length; i < ii; i++)
-		  		{
-		  			var data = {
-		  					name : $('#name').val(),
-		  					y : loc_[i].y,
-		  					x : loc_[i].x
-		  			};
-		  			data_list.push(data);
-		  			y_list.push(loc_[i].y);
-		  			x_list.push(loc_[i].x);
-		  		}
-			var route = {
-						name : $('#routeName').val(),
-						y : y_list,
-						x : x_list
-			};
-		  	
-		  	//console.log(data_list);
-		  	var keywordList = $('#routeKeyword').val().split(" ");
-			console.log(keywordList);
-		  	 $.ajax({
-		         url: '/saveRoute',
-				traditional:true,
-		         type: "POST",
-		         xhrFields: {
-		  	        withCredentials: true
-		  	    },
-		         data: JSON.stringify(route),
-		         dataType : "text",
-		         contentType: 'application/json',
-		         success: function(data){
-		        	 var post = {
-		        			name : $('#routeName').val(),
-		 		  			route_id : data,
-		 		  			keyword : keywordList,
-		 		  			heart : 0,
-		 		  			information : $('#routeInfo').val(),
-		 		  			length : (y_list.length * interval / 60000)+1|0,
-		 		  			user_id : user_name
-		 		  	 };
-		        	 console.log(post);
-		        	 $.ajax({
-		        		 url: '/savePost',
-		        		 traditional:true,
-				         type: "POST",
-				         xhrFields: {
-				  	        withCredentials: true
-				         },
-				         data: JSON.stringify(post),
-				         dataType : "text",
-				         contentType: 'application/json',
-				         success: function(data){
-				        	 console.log(data);
-				         },
-				         error: function(request, error){
-				        	 alert("fail");
-				         }
-		        	 });
-		         },
-		         error:function(request, error) {
-		 			alert("fail");
-		 		}
-		     });
-		  	
-		  	$('#createRoute').modal('hide');
-		  	clearInterval(playAlert);
-		  	clearInterval(playCur);
-			
-			
+	  	$('#createRoute').modal('hide');			
 	}
 }
