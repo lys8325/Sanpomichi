@@ -1,5 +1,7 @@
 package com.sanpo.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class PostService {
 	{
 		postRepo.save(p);
 		return p.getId();
+	}
+	
+	public List<Post> searchPost(String kwList)
+	{
+		return postRepo.findByKeyWord(kwList);
 	}
 
 }

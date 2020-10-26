@@ -16,4 +16,6 @@ public interface PostRepository extends JpaRepository<Post, String> {
 	@Query(value = "select * from post where route_id = :route_id", nativeQuery = true)
 	 Post findByRouteId(@Param("route_id") int route_id);
 
+	@Query(value = "select * from post where JSON_CONTAINS(keyword,:keyword_list,'$')", nativeQuery = true)
+	 List<Post> findByKeyWord(@Param("keyword_list") String keyword_list);
 }
