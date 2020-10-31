@@ -26,22 +26,14 @@ $('#kw_search').on('click', function(){
 	}
 	var kwList = $('#kw_list').val().split(/[\#|,.;:!?\-\=\/~@ ]/);
 	var kwCnt = 0;
-	var keywordList = "";
+	var keywordList = [];
 	
 	for(var i=0;i<kwList.length;++i){
 		if(kwList[i] != ""){
-			if(kwCnt == 0){
-				keywordList += "\[\"";
-			}else{
-				keywordList += "\"";
-			}
-			keywordList += kwList[i];
+			keywordList.push(kwList[i]);
 			++kwCnt;
 			if(kwCnt == 3 || kwCnt == kwList.length){
-				keywordList += "\"\]";
 				break;
-			}else{
-				keywordList += "\",";
 			}
 		}
 	}

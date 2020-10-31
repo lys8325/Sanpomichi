@@ -1,6 +1,5 @@
 package com.sanpo.restcontroller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,15 @@ public class PostRestController {
 	}
 	
 	@PostMapping("/kwSearch")
-	public List<Post> searchPost(@RequestBody String kwList)
-	{	List<Post> res = postService.searchPost(kwList);
-//		if (res.size() == 0) {
-//			System.out.println("null");
-//		}
-//		for(Post p : res) {
-//			System.out.println(p);
-//		}
+	public List<Integer> searchPost(@RequestBody List<String> kwList)
+	{	
+		List<Integer> res = postService.searchPost(kwList);
+		if (res.size() == 0) {
+			System.out.println("null");
+		}
+		for(Integer p : res) {
+			System.out.println(p);
+		}
 		return res;
 	}
 
