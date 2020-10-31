@@ -67,4 +67,16 @@ public class ViewController {
 		mv.setViewName("login");
 		return mv;
 	}
+	
+	@GetMapping("/mypage")
+	public ModelAndView mypage()
+	{
+		ModelAndView mv = new ModelAndView();
+		List<Route> route = routeRepo.findAll();
+		List<Post> post = postRepo.findAll();
+		mv.setViewName("mypage");
+		mv.addObject("routeList", route);
+		mv.addObject("postList", post);
+		return mv;
+	}
 }
