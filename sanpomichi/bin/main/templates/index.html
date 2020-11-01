@@ -38,7 +38,16 @@
 			</div>
 			<div id="right-area">
 				<div class ="row">
-					<h1 id ="rank">산책 루트 랭킹</h1>
+					<table id = "showTable" class="table table-striped table-bordered" style="width:100%">
+						<h1 id ="rank">산책 루트 랭킹</h1>
+<!-- 						<tbody>
+							<tr th:each = "postListAll:${postListAll}" th:if="${session.userNickName} != null" th:onclick ="'toLoad_map('+ ${postListAll.route_id}  +')'">
+								<td style ="width : 400px" id ="tableTd" th:text = "${postListAll.information}"></td>
+							</tr>
+						</tbody> -->
+					</table>
+					<ul id="rank-list">
+					</ul>
 				</div>
 			</div>
 	  </div>
@@ -47,7 +56,9 @@
 
 
 	  
-	    
+<script th:inline="javascript">
+    let postListAll = [[${postListAll}]];
+</script>	    
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>	  	  
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>

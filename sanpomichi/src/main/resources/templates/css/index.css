@@ -22,6 +22,10 @@
 	font-family: 'Do Hyeon', sans-serif;
 }
 
+#rank-list {
+	list-style: none;
+}
+
 #tableHd
 {
 	font-family: 'Do Hyeon', sans-serif;

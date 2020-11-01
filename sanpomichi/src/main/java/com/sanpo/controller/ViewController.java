@@ -32,6 +32,8 @@ public class ViewController {
 		String user_id = (String) session.getAttribute("userNickName");
 		List<Post> list = postRepo.findByUserId(user_id);
 		mv.addObject("postList", list);
+		List<Post> postListAll = postRepo.findAll();
+		mv.addObject("postListAll", postListAll);
 		return mv;
 	}
 
@@ -60,6 +62,20 @@ public class ViewController {
 	{
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("login");
+		return mv;
+	}
+	
+	@GetMapping("/theme")
+//	public ModelAndView theme(HttpSession session, HttpServletResponse response)
+	public ModelAndView theme()
+	{
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("theme");
+//		String user_id = (String) session.getAttribute("userNickName");
+//		List<Post> list = postRepo.findByUserId(user_id);
+		List<Post> postList = postRepo.findAll();
+		mv.addObject("postList", postList);
+//		mv.addObject("postList", list);
 		return mv;
 	}
 }
