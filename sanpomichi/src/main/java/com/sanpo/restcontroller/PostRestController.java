@@ -1,5 +1,7 @@
 package com.sanpo.restcontroller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,19 @@ public class PostRestController {
 	{
 		postService.savePost(p);
 		return p.getId();
+	}
+	
+	@PostMapping("/kwSearch")
+	public List<Integer> searchPost(@RequestBody List<String> kwList)
+	{	
+		List<Integer> res = postService.searchPost(kwList);
+		if (res.size() == 0) {
+			System.out.println("null");
+		}
+		for(Integer p : res) {
+			System.out.println(p);
+		}
+		return res;
 	}
 
 }
