@@ -33,8 +33,17 @@ function showRank() {
 	len = route_array.length > 10 ? 10 : route_array.length;
 	
 	for (let i = 0; i < len; i++) {
-		let li = document.createElement('li');
-		li.innerHTML = `${i + 1}위 ${postListAll[route_array[i][0]].information}`;
+		let li = document.createElement('div');
+		if (i === 0) {
+			li.innerHTML = `🥇 ${postListAll[route_array[i][0]].information}`;
+		} else if (i === 1) {
+			li.innerHTML = `🥈 ${postListAll[route_array[i][0]].information}`;
+		} else if (i === 2) {
+			li.innerHTML = `🥉 ${postListAll[route_array[i][0]].information}`;
+		} else {
+			li.innerHTML = `${i + 1}위 ${postListAll[route_array[i][0]].information}`;
+		}
+		li.setAttribute('style', 'border: 1px black solid; margin: 3px 0; padding: 10px; margin-left: 35px;')
 	  	rank.append(li);
 		count++;
 	}
