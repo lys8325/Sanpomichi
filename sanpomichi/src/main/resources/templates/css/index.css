@@ -19,7 +19,13 @@
 {
 	padding-top : 10px;
 	padding-left : 40px;
+	margin-bottom: 0;
+	padding-bottom: 0;
 	font-family: 'Do Hyeon', sans-serif;
+}
+
+#rank-list {
+	list-style: none;
 }
 
 #tableHd

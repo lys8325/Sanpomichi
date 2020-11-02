@@ -19,6 +19,7 @@
  			 <input type="text" class="form-control" id="kw_list" placeholder="검색하고 싶은 키워를 입력하세요. 특수문자로 구분하여 최대 3개까지 검색 가능." aria-label="Text input with dropdown button">
   				<div class="input-group-append">
   					<button class="btn btn-outline-primary mr-4" type="button" id="kw_search">Search</button>
+  					<div id="themeButton" style="margin-right: 20px; border: 1px black solid; border-radius: 5px; padding: 5px; padding-top:10px"><a href="/theme">테마별 추천</a></div>
   					<div class="row">
   						<div class="col">
   							<button th:if="${session.userNickName} == null" class="btn btn-outline-secondary" type="button">

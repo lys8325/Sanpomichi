@@ -9,14 +9,6 @@ var flag = 0;
 
 var $window = $(window);
 $(document).ready(function(){
-	$('#showTable').dataTable( { "autoWidth": false ,
-		searching: false,
-		lengthChange: false,
-		ordering : false,
-		info:false
-		} );
-	
-	
     var data_list = [];
     for(var i = 0, ii =x_list.length; i < ii; i++)
 	{		
@@ -27,25 +19,6 @@ $(document).ready(function(){
 			data_list.push(data);
 			console.log(data);
 	}
-    
-    var location = new naver.maps.LatLng(y_list[0],
-    		x_list[0]);
-    
-    var startMarkerOptions = {
-    		position: location,
-    		map: map,
-    		
-    };
-    
-    var markerOptions = {
-    		position: location,
-    		map: map,
-    };
-
-    marker_start = new naver.maps.Marker(startMarkerOptions);
-    marker_cur = new naver.maps.Marker(markerOptions);
-    map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
-    map.setZoom(17); // 지도의 줌 레벨을 변경합니다.
     
     polyline = new naver.maps.Polyline({
 	    map: map,
@@ -59,7 +32,7 @@ $(document).ready(function(){
 });
 var map = new naver.maps.Map('map', {
 	
-    center: new naver.maps.LatLng(y_list[0], x_list[0]),
+    center: new naver.maps.LatLng(37.5666805, 126.9784147),
     zoom: 17,
     mapTypeId: naver.maps.MapTypeId.NORMAL
 });
@@ -84,7 +57,7 @@ function onSuccessGeolocation_cur(position) {
     
     marker_cur = new naver.maps.Marker(markerOptions);
     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
-    map.setZoom(15); // 지도의 줌 레벨을 변경합니다.
+    map.setZoom(17); // 지도의 줌 레벨을 변경합니다.
     
 }
 
@@ -92,9 +65,13 @@ function onErrorGeolocation_cur() {
     var center = map.getCenter();
 }
 
-/*
 $(window).on("load", function() {
     if (navigator.geolocation) {
+        /**
+         * navigator.geolocation 은 Chrome 50 버젼 이후로 HTTP 환경에서 사용이 Deprecate 되어 HTTPS 환경에서만 사용 가능 합니다.
+         * http://localhost 에서는 사용이 가능하며, 테스트 목적으로, Chrome 의 바로가기를 만들어서 아래와 같이 설정하면 접속은 가능합니다.
+         * chrome.exe --unsafely-treat-insecure-origin-as-secure="http://example.com"
+         */
         navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
     } else {
         var center = map.getCenter();
@@ -102,7 +79,7 @@ $(window).on("load", function() {
         infowindow.open(map, center);
     }
 });
-*/
+
 
 
 /**
@@ -121,54 +98,7 @@ playCur = setInterval(function() {
 	marker_cur = null;
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
 	
-}, 3000);
+}, 5000000);
   
-$('#comment_button').on('click',function(){
-	
-	if(comment == null)
-		{
-			comment = new Array();
-			comment.push($('#comment_input').val());
-		}
-	else
-		{
-		comment.push($('#comment_input').val());
-		}
-	
-		var route = {
-			id : id,
-			x : x_list,
-			y : y_list,
-			comment : comment
-		};
-		
-		$.ajax({
-			 url: '/saveRoute',
-			 traditional:true,
-	        type: "POST",
-	        xhrFields: {
-	 	        withCredentials: true
-	        },
-	        data: JSON.stringify(route),
-	        dataType : "text",
-	        contentType: 'application/json',
-	        success: function(data){
-	        	$('#tbody').empty();
-	        	$.each(comment, function(index, value){
-	        		var html = "<tr>"+
-	        				   "	<td style ='width : 800px'>" + value + "</td>" +
-	        				   "</tr>";
-	        		$('#tbody').append(html);
-	        		
-	        	});
-	        	
-	        },
-	        error: function(request, error){
-	       	 alert("fail");
-	        }
-		 });
-		
-	
-})
 
     
