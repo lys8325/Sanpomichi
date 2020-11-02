@@ -52,8 +52,13 @@ public class ViewController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("load_map");
 		Route route = routeRepo.findById(route_id).get();
+		Post post = postRepo.findByRouteId(route_id);
+		mv.addObject("length",post.getLength());
+		mv.addObject("information",post.getInformation());
 		mv.addObject("x_list", route.getX());
 		mv.addObject("y_list", route.getY());
+		mv.addObject("id", route.getId());
+		mv.addObject("comment", route.getComment());
 		return mv;
 	}
 	
@@ -76,6 +81,18 @@ public class ViewController {
 		List<Post> postList = postRepo.findAll();
 		mv.addObject("postList", postList);
 //		mv.addObject("postList", list);
+		return mv;
+	}
+	
+	@GetMapping("/mypage")
+	public ModelAndView mypage()
+	{
+		ModelAndView mv = new ModelAndView();
+		List<Route> route = routeRepo.findAll();
+		List<Post> post = postRepo.findAll();
+		mv.setViewName("mypage");
+		mv.addObject("routeList", route);
+		mv.addObject("postList", post);
 		return mv;
 	}
 }
