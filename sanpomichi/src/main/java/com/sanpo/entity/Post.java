@@ -43,4 +43,5 @@ public class Post {
 	Integer length;
 
 	String user_id;
+	
 }
