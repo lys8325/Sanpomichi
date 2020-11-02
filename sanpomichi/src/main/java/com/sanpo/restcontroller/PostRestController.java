@@ -24,15 +24,9 @@ public class PostRestController {
 	}
 	
 	@PostMapping("/kwSearch")
-	public List<Integer> searchPost(@RequestBody List<String> kwList)
+	public List<Post> searchPost(@RequestBody List<String> kwList)
 	{	
-		List<Integer> res = postService.searchPost(kwList);
-		if (res.size() == 0) {
-			System.out.println("null");
-		}
-		for(Integer p : res) {
-			System.out.println(p);
-		}
+		List<Post> res = postService.searchPost(kwList);
 		return res;
 	}
 
