@@ -1,7 +1,7 @@
 var distance_array = [];
 $(document).ready(function(){
 	navigator.geolocation.getCurrentPosition(onSuccessGeolocation_cur, onErrorGeolocation_cur);
-
+	
 });
 
 
@@ -19,19 +19,23 @@ function onSuccessGeolocation_cur(position) {
     			}
     	})
 	});
-    
     ans = ans.reverse();
     $('#tbody').empty();
 	$.each(ans, function(index, value){
 		var html = "<tr>"+
 				   "	<td style ='width : 300px'>" + ans[index].route_id + "</td>" +
 				   "	<td style ='width : 800px'>" + ans[index].name + "</td>" +
-				   "	<td style ='width : 800px'>" + ans[index].heart + "</td>" +
-				   "	<td><button class='btn btn-outline-secondary'  type='button' onclick='Go(" + ans[index].route_id + ")'>Go</button></td>" +
+				   "	<td style ='width : 300px'>" + ans[index].heart + "</td>" +
+				   "	<td style ='width : 100px'><button class='btn btn-outline-secondary'  type='button' onclick='Go(" + ans[index].route_id + ")'>Go</button></td>" +
 				   "</tr>";
 		$('#tbody').append(html);
 		
 	});
+	$('#showTable').dataTable({"autoWidth": false ,
+		searching: false,
+		lengthChange: false,
+		ordering : false,
+		info:false});
 }
 
 

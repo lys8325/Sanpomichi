@@ -30,19 +30,29 @@ $(document).ready(function(){
     
     var location = new naver.maps.LatLng(y_list[0],
     		x_list[0]);
-    
+    var end_location = new naver.maps.LatLng(y_list[y_list.length-1],
+    		x_list[x_list.length-1]);
     var startMarkerOptions = {
     		position: location,
     		map: map,
-    		
     };
-    
+    var endMarkerOptions = {
+    		position: end_location,
+    		map: map,
+    };
     var markerOptions = {
     		position: location,
     		map: map,
+    		icon: {
+    	        url: './img/pin_default.png',
+    	        size: new naver.maps.Size(22, 35),
+    	        origin: new naver.maps.Point(0, 0),
+    	        anchor: new naver.maps.Point(11, 35)
+    	    }
     };
 
     marker_start = new naver.maps.Marker(startMarkerOptions);
+    marker_end = new naver.maps.Marker(endMarkerOptions);
     marker_cur = new naver.maps.Marker(markerOptions);
     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
     map.setZoom(17); // 지도의 줌 레벨을 변경합니다.
@@ -79,7 +89,12 @@ function onSuccessGeolocation_cur(position) {
     var markerOptions = {
     		position: location,
             map: map,
-           
+            icon: {
+    	        url: './img/pin_default.png',
+    	        size: new naver.maps.Size(22, 35),
+    	        origin: new naver.maps.Point(0, 0),
+    	        anchor: new naver.maps.Point(11, 35)
+    	    }
     	};
     
     marker_cur = new naver.maps.Marker(markerOptions);
