@@ -16,9 +16,13 @@
   		
   		
   		<div class="input-group input-group-lg">
- 			 <input type="text" class="form-control" id="kw_list" placeholder="검색하고 싶은 키워를 입력하세요. 특수문자로 구분하여 최대 3개까지 검색 가능." aria-label="Text input with dropdown button">
+  			<form action="/search_result" method="get">
+  				<input id="string" placeholder="띄어쓰기로 구분하여 검색 가능." type="text" name="kwList" />
+  				<input type="submit" value="검색" />
+			</form>
+ 			 <!-- <input type="text" class="form-control" id="kw_list" placeholder="검색하고 싶은 키워를 입력하세요. 띄어쓰기로 구분하여 최대 3개까지 검색 가능." aria-label="Text input with dropdown button"> -->
   				<div class="input-group-append">
-  					<button class="btn btn-outline-primary mr-4" type="button" id="kw_search">Search</button>
+  					<!-- <button class="btn btn-outline-primary mr-4" type="button" id="kw_search" onClick="location.href=`/search_result?kwList=${kw_list.val()}`">Search</button> -->
   					<div id="themeButton" style="margin-right: 20px; border: 1px black solid; border-radius: 5px; padding: 5px; padding-top:10px"><a href="/theme">테마별 추천</a></div>
   					<div class="row">
   						<div class="col">
@@ -40,6 +44,7 @@
 
 
 <script src="./js/common.js"></script>
+<script src="./js/search_result.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 </body>
