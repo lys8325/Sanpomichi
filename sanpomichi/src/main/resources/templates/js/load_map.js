@@ -30,19 +30,29 @@ $(document).ready(function(){
     
     var location = new naver.maps.LatLng(y_list[0],
     		x_list[0]);
-    
+    var end_location = new naver.maps.LatLng(y_list[y_list.length-1],
+    		x_list[x_list.length-1]);
     var startMarkerOptions = {
     		position: location,
     		map: map,
-    		
     };
-    
+    var endMarkerOptions = {
+    		position: end_location,
+    		map: map,
+    };
     var markerOptions = {
     		position: location,
     		map: map,
+    		icon: {
+    	        url: './img/pin_default.png',
+    	        size: new naver.maps.Size(22, 35),
+    	        origin: new naver.maps.Point(0, 0),
+    	        anchor: new naver.maps.Point(11, 35)
+    	    }
     };
 
     marker_start = new naver.maps.Marker(startMarkerOptions);
+    //marker_end = new naver.maps.Marker(endMarkerOptions);
     marker_cur = new naver.maps.Marker(markerOptions);
     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
     map.setZoom(17); // 지도의 줌 레벨을 변경합니다.
@@ -65,8 +75,16 @@ var map = new naver.maps.Map('map', {
 });
 
 
-
-
+/*
+naver.maps.Event.addListener(map, 'click', function(e){
+	// 지도를 클릭하면 아래 내용이 실행됩니다.
+	alert(e.coord.lat() + ', ' + e.coord.lng());
+	// e 는 클릭시 넘어오는 이벤트 (네이밍은 원하는 대로 하셔도 됩니다)
+	// e 에서 필요한 것을 꺼내서 쓰면 됩니다.
+	// e.coord.lat() 는 위도 (Latitude)  보통 약어로 lat
+	// e.coord.lng() 는 경도 (Longitude) 보퉁 약어로 lng
+});
+*/
 
 
 
@@ -79,7 +97,12 @@ function onSuccessGeolocation_cur(position) {
     var markerOptions = {
     		position: location,
             map: map,
-           
+            icon: {
+    	        url: './img/pin_default.png',
+    	        size: new naver.maps.Size(22, 35),
+    	        origin: new naver.maps.Point(0, 0),
+    	        anchor: new naver.maps.Point(11, 35)
+    	    }
     	};
     
     marker_cur = new naver.maps.Marker(markerOptions);
