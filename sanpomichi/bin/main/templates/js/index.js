@@ -34,6 +34,7 @@ function showRank() {
 	
 	for (let i = 0; i < len; i++) {
 		let li = document.createElement('div');
+		li.onclick = function() { toLoad_map(postListAll[route_array[i][0]].route_id) };
 		if (i === 0) {
 			li.innerHTML = `🥇 ${postListAll[route_array[i][0]].information}`;
 		} else if (i === 1) {
