@@ -64,7 +64,12 @@ function onSuccessGeolocation_cur(position) {
     var markerOptions = {
     		position: location,
             map: map,
-           
+            icon: {
+    	        url: './img/pin_default.png',
+    	        size: new naver.maps.Size(22, 35),
+    	        origin: new naver.maps.Point(0, 0),
+    	        anchor: new naver.maps.Point(11, 35)
+    	    }
     	};
     
     marker_cur = new naver.maps.Marker(markerOptions);
