@@ -8,18 +8,28 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">
 <link rel="stylesheet" type="text/css" href="./css/common.css">
 <link rel="stylesheet" type="text/css" href="./css/theme.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.css"/>
 </head>
 <body>
 
 <div class ="container">
 	<div th:replace = "./common/topbar :: topbar"></div>
 	<div class ="row">
-			<div id="middle-area">
+			<div id="middle-area" style="height:auto">
 				<div id="title">검색 결과</div>
-				
+				<div id="login" th:if="${session.userNickName} == null" th:onclick ="toLogin()">
+					<img class="login-img" src="./img/login-background.jpeg" alt="로그인이 필요합니다!">
+					<div class="login-info">
+						<p>테마별 산책 루트 추천 페이지입니다.</p>
+						<p>이용하기 위해서는 로그인이 필요합니다!</p>
+						<p>이미지 클릭 시 로그인 화면으로 이동합니다.</p>
+					</div>
+				</div>
 
-				<div class="tabs col-12" >
-		            <div id="result" style="width:100%"></div>
+				<div class="tabs col-12" th:if="${session.userNickName} != null">
+		            <div id="data-container" style="width:100%"></div>
 		        </div>
 			</div>
 	  </div>
