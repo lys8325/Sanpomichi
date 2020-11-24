@@ -32,14 +32,23 @@ $(document).ready(function(){
     		x_list[0]);
     var end_location = new naver.maps.LatLng(y_list[y_list.length-1],
     		x_list[x_list.length-1]);
-    var startMarkerOptions = {
-    		position: location,
-    		map: map,
-    };
-    var endMarkerOptions = {
-    		position: end_location,
-    		map: map,
-    };
+  
+    
+    var startMarkerOptions = new naver.maps.Circle({
+        map: map,
+        center: location,
+        radius: 25,
+        fillColor: 'red',
+        fillOpacity: 1
+    });
+    
+    var endMarkerOptions = new naver.maps.Circle({
+        map: map,
+        center: end_location,
+        radius: 25,
+        fillColor: 'black',
+        fillOpacity: 1
+    });
     var markerOptions = {
     		position: location,
     		map: map,
@@ -51,7 +60,7 @@ $(document).ready(function(){
     	    }
     };
 
-    marker_start = new naver.maps.Marker(startMarkerOptions);
+    //marker_start = new naver.maps.Marker(startMarkerOptions);
     //marker_end = new naver.maps.Marker(endMarkerOptions);
     marker_cur = new naver.maps.Marker(markerOptions);
     map.setCenter(location); // 얻은 좌표를 지도의 중심으로 설정합니다.
