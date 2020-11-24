@@ -11,7 +11,7 @@ function toLoad_map(route_id){
 }
 
 let result_list;
-const resultTab = document.querySelector("#result");
+const resultTab = document.querySelector("#data-container");
 
 function search(){
 	
@@ -64,9 +64,12 @@ function search(){
 	       	 	}
 		       	
 		       	for (let i = 0; i < result_list.length; i++) {
-		       		console.log(result_list[i].route_id);
 		     		let div = document.createElement('div');
-		     		div.innerHTML = `<p>산책 루트 이름 : ${result_list[i].name}</p> <p>소요 시간 : ${result_list[i].length}분</p> <p>산책 루트 정보 : ${result_list[i].information}</p>`;
+		     		div.onclick = function() { toLoad_map(result_list[i].route_id)};
+		     		div.innerHTML = `<p>산책 루트 이름 : ${result_list[i].name}</p>
+		     						<p>테마 : ${result_list[i].keyword}</p>
+		     						<p>소요 시간 : ${result_list[i].length}분</p>
+		     						<p>산책 루트 정보 : ${result_list[i].information}</p>`;
 		     		div.setAttribute('style', 'border: 1px black solid; margin: 5px 0; padding: 10px;')
 		     	  	resultTab.append(div);
 		     	}
