@@ -9,7 +9,6 @@ function setRestUrl(){
 	var url = "https://"+wholeUrl.split("/")[2];
 	return url;
 }
-
 function getView(func){
 	location.href = HEALRO_REST_POST_URL+"/"+func;
 	
