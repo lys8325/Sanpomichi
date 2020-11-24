@@ -6,7 +6,7 @@ $( document ).ready(function() {
 
 function setRestUrl(){
 	var wholeUrl = window.location.href;
-	var url = "http://"+wholeUrl.split("/")[2];
+	var url = "https://"+wholeUrl.split("/")[2];
 	return url;
 }
 
