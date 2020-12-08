@@ -15,15 +15,30 @@
 <body>
 
 <div class ="container">
-	<div th:replace = "./common/topbar_c :: topbar" ></div> 
+	<div th:replace = "./common/topbar_d :: topbar" ></div> 
 	<div class="row">
-		<div id="map" style="width:100%;height:55vh;" class="col-9"></div>
-		<div class="col-3">
-			<div class="row">
-				<div class="col-1">
-				</div>
-				<div class="col-11" id ="comment">
-					<div class="row" >
+		<div id="map" style="width:100%;height:55vh;" ></div>
+	</div>
+	<span class="row mt-2" style ="font-family: 'Do Hyeon', sans-serif;">경로 설명</span>
+	<div class="row mt-1 mb-2" id = "description" >
+		<div class="mt-2 ml-2"  th:text = "${information}" id="content">
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="selectCmpnyModal" tabindex="-1" role="dialog" aria-labelledby="selectCmpnyModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">경로 코멘트 작성</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <form id="frmSelectCmpny" th:action="@{/selectCmpny}" method="post">
+              <div class="modal-body">
+                <div class="row" >
 						<table id = "showTable" class="table table-striped table-bordered" style="width:100%">
 							<thead>
 								<tr>
@@ -45,16 +60,14 @@
   							</div>
 						</div>
 					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<span class="row mt-2" style ="font-family: 'Do Hyeon', sans-serif;">경로 설명</span>
-	<div class="row mt-1 mb-2" id = "description" >
-		<div class="mt-2 ml-2" th:text = "${information}" id="content">
-		</div>
-	</div>
-</div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >Close</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
 
 <script th:inline="javascript">
     	var x_list = [[${x_list}]];
